@@ -23,4 +23,11 @@ interface SpotifyApi {
         @Path("artist_id") artistId: String,
         @Query("limit") limit: Int = 20
     ): AlbumResponse
+
+    @GET(ServicesConstants.TRACK_ENDPOINT)
+    suspend fun getTracksByAlbum(
+        @Header("Authorization") token: String,
+        @Path("id") albumId: String,
+        @Query("limit") limit: Int = 50
+    ): TracksResponse
 }

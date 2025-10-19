@@ -14,7 +14,6 @@ fun AppNavigation() {
     NavHost(navController, startDestination = "artists") {
         composable("artists") {
             ArtistScreen { artistId ->
-                // Navegamos con el ID del artista
                 navController.navigate("albums/$artistId")
             }
         }
@@ -24,7 +23,20 @@ fun AppNavigation() {
             arguments = listOf(navArgument("artistId") { type = NavType.StringType })
         ) { backStackEntry ->
             val artistId = backStackEntry.arguments?.getString("artistId") ?: ""
-            AlbumsScreen(artistId)
+            AlbumsScreen(
+                artistId = artistId,
+                onAlbumClick = { albumId ->
+                    navController.navigate("tracks/$albumId")
+                }
+            )
+        }
+
+        composable(
+            "tracks/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val albumId = backStackEntry.arguments?.getString("albumId") ?: ""
+            TracksScreen(albumId)
         }
     }
 }

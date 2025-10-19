@@ -89,11 +89,6 @@ fun ArtistCard(artist: ArtistItem, onClick: () -> Unit) {
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            /*Text(
-                text = artist.name,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )*/
             Column {
                 Text(artist.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 artist.genres.firstOrNull()?.let {

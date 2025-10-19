@@ -1,6 +1,7 @@
 package com.openpay.spotityinfo.ui.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,7 +36,8 @@ import com.openpay.spotityinfo.ui.viewmodel.ArtistsListViewModel
 @Composable
 fun AlbumsScreen(
     artistId: String,
-    viewModel: ArtistsListViewModel = hiltViewModel()
+    viewModel: ArtistsListViewModel = hiltViewModel(),
+    onAlbumClick: (String) -> Unit
 ) {
     val albums by viewModel.albums.observeAsState(emptyList())
 
@@ -60,16 +62,21 @@ fun AlbumsScreen(
             modifier = Modifier.padding(8.dp)
         ) {
             items(albums) { album ->
-                AlbumCard(album)
+                AlbumCard(album) {
+                    onAlbumClick(album.id)
+                }
             }
         }
     }
 }
 
 @Composable
-fun AlbumCard(album: AlbumItem) {
+fun AlbumCard(album: AlbumItem, onClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
