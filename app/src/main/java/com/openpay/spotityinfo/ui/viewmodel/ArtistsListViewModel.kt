@@ -42,7 +42,6 @@ class ArtistsListViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val token = getSpotiToken(clientId, clientSecret)
-                Log.d("SpotifyAuthViewModel", "Access Token: $token")
                 val response = getArtistsList(token, query)
                 _artists.value = response.artists.items
             } catch (e: Exception) {
