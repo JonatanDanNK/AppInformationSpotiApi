@@ -68,6 +68,7 @@ class ArtistsListViewModel @Inject constructor(
             try {
                 val token = getSpotiToken(clientId, clientSecret)
                 val responseTracks = getTrack(token, trackId)
+                _tracks.value = responseTracks.items
             } catch (e: Exception) {
 
             }
